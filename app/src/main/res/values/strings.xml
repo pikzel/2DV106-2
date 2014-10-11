@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Assignment2</string>
+    <string name="labelEditCountry">Edit country</string>
+    <string name="labelEditYear">Edit year</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_visited_countries">Visited Countries</string>
+    <string name="labelYear">Year:</string>
+    <string name="labelCountry">Country:</string>
+    <string name="buttonSaveCountry">Save</string>
+    <string name="addCountry">Add Country</string>
+    <string name="menuDeleteVisit">Delete</string>
+    <string name="menuEditVisit">Edit</string>
+    <string name="title_activity_edit_visited_countries">Edit</string>
+    <string name="buttonCancelCountry">Cancel</string>
+
+</resources>
