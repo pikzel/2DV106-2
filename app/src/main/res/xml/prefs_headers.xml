@@ -7,4 +7,8 @@
         android:id="@+id/textSizeSettings"
         android:fragment="se.pikzel.assignment2.ex1.settings.TextSizeSettings"
         android:title="@string/size_settings"/>
+    <header
+        android:id="@+id/backgroundColorSettings"
+        android:fragment="se.pikzel.assignment2.ex1.settings.BackgroundColorSettings"
+        android:title="@string/bgcolor_settings"/>
 </preference-headers>

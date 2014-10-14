@@ -5,8 +5,8 @@
         <ListPreference android:title="@string/pref_textSize"
             android:key="textSize"
             android:defaultValue="1"
-            android:entries="@array/listArraySize"
-            android:entryValues="@array/listValuesSize"/>
+            android:entries="@array/sizeEntries"
+            android:entryValues="@array/sizeEntryValues"/>
     </PreferenceCategory>
     
 </PreferenceScreen>

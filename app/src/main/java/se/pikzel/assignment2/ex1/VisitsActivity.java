@@ -3,9 +3,8 @@ package se.pikzel.assignment2.ex1;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,22 +19,22 @@ import java.util.List;
 
 import se.pikzel.assignment2.Message;
 import se.pikzel.assignment2.R;
+import se.pikzel.assignment2.ex1.settings.BackgroundColor;
 import se.pikzel.assignment2.ex1.settings.SettingsActivity;
 import se.pikzel.assignment2.ex1.settings.TextSize;
+import se.pikzel.assignment2.ex1.settings.VisitSettings;
 
 /**
  * @author Pontus Palmenäs
  */
 public class VisitsActivity extends Activity {
-    private final String prefNameSortedBy = "sortedBy";
-    private final String prefNameTextSize = "textSize";
     private ListView listView;
     private ArrayAdapter<Visit> listAdapter;
     private Activity mainActivity;
     private DataSource dataSource;
     private List<Visit> visits;
-    private SharedPreferences sharedPreferences;
-    private String textSize = TextSize.MEDIUM;
+    private VisitSettings settings;
+    private String textSize = TextSize.MEDIUM; // Todo Can it be converted to local field?
     private VisitSortOrder sortOrder = VisitSortOrder.YEAR;
     private final int MENU_DELETE = 0;
     private final int MENU_EDIT = 1;
@@ -45,11 +44,11 @@ public class VisitsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        final String prefSortedBy = sharedPreferences.getString(prefNameSortedBy, VisitSortOrder.YEAR.name());
+        settings = new VisitSettings(this);
+
+        final String prefSortedBy = settings.getSortedBy(VisitSortOrder.YEAR);
 
         setContentView(R.layout.activity_visits);
-
         mainActivity = this;
         dataSource = new DataSource(this);
 
@@ -61,7 +60,7 @@ public class VisitsActivity extends Activity {
             public View getView(int position, View row, ViewGroup parent) {
                 row = getLayoutInflater().inflate(R.layout.list_item, parent, false);
                 TextView listItem = (TextView)row.findViewById(R.id.listItem);
-                textSize = sharedPreferences.getString(prefNameTextSize, textSize);
+                textSize = settings.getTextSize(TextSize.MEDIUM);
                 if (textSize.equals(TextSize.SMALL)) {
                     listItem.setTextSize(10);
                 } else if (textSize.equals(TextSize.MEDIUM)) {
@@ -119,8 +118,8 @@ public class VisitsActivity extends Activity {
 
     @Override
     protected void onResume() {
-        textSize = sharedPreferences.getString(prefNameTextSize, textSize);
-        dataSource.open();
+        textSize = settings.getTextSize(textSize);
+        setBackgroundColor(settings.getBgColor(BackgroundColor.GRAY));
         listAdapter.notifyDataSetChanged();
         super.onResume();
     }
@@ -135,7 +134,6 @@ public class VisitsActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // XML based menu, specified in res/menu/visits.xml
         getMenuInflater().inflate(R.menu.visits, menu);
         return true;
     }
@@ -159,6 +157,9 @@ public class VisitsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Change sort order, save settings and reload list.
+     */
     private void onOptionsItemSelectedSortOrder(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuVisitsSortByCountryDesc:
@@ -182,7 +183,7 @@ public class VisitsActivity extends Activity {
     }
 
     private void saveSortOrder() {
-        sharedPreferences.edit().putString(prefNameSortedBy, sortOrder.name()).apply();
+        settings.saveSortOrder(sortOrder);
     }
 
     /**
@@ -243,5 +244,15 @@ public class VisitsActivity extends Activity {
         boolean success = dataSource.updateVisit(visitId, year, country);
         dataSource.close();
         return success;
+    }
+
+    public void setBackgroundColor(String color) {
+        if (color.equals(BackgroundColor.GRAY)) {
+            listView.setBackgroundColor(Color.DKGRAY);
+        } else if (color.equals(BackgroundColor.BLUE)) {
+            listView.setBackgroundColor(Color.BLUE);
+        } else if (color.equals(BackgroundColor.MAGENTA)) {
+            listView.setBackgroundColor(Color.MAGENTA);
+        }
     }
 }

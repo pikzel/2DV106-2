@@ -11,6 +11,10 @@ import se.pikzel.assignment2.R;
  * @author Pontus Palmenäs
  */
 public class SettingsActivity extends PreferenceActivity {
+    private static final String[] validFragments = {
+            TextSizeSettings.class.getName(),
+            BackgroundColorSettings.class.getName() };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,12 +22,17 @@ public class SettingsActivity extends PreferenceActivity {
 
     @Override
     public void onBuildHeaders(List<Header> target) {
-        // TODO Auto-generated method stub
         loadHeadersFromResource(R.xml.prefs_headers, target);
     }
 
     @Override
     protected boolean isValidFragment(String fragmentName) {
-        return TextSizeSettings.class.getName().equals(fragmentName);
+        boolean isValid = false;
+        for (String s : validFragments) {
+            if (s.equals(fragmentName)) {
+                isValid = true;
+            }
+        }
+        return isValid;
     }
 }
