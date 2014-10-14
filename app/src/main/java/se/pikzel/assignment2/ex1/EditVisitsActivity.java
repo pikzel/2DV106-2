@@ -9,7 +9,7 @@ import android.widget.EditText;
 import se.pikzel.assignment2.Message;
 import se.pikzel.assignment2.R;
 
-public class EditVisitedCountriesActivity extends Activity {
+public class EditVisitsActivity extends Activity {
     private long id;
     private int position;
 
@@ -17,7 +17,7 @@ public class EditVisitedCountriesActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_visited_countries);
+        setContentView(R.layout.activity_edit_visits);
         this.id = getIntent().getLongExtra(Visit.ID, -1);
         this.position = getIntent().getIntExtra(Visit.POSITION, -1);
     }
@@ -45,7 +45,7 @@ public class EditVisitedCountriesActivity extends Activity {
             new Message(this).showErrorMessage("Please enter a year.");
             return;
         }
-        if (!VisitedCountriesValidator.isInputValid(this, year, country)) {
+        if (!VisitsValidator.isInputValid(this, year, country)) {
             return;
         }
 

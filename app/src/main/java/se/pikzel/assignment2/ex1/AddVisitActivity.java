@@ -12,12 +12,12 @@ import se.pikzel.assignment2.R;
 /**
  * @author Pontus Palmenäs
  */
-public class AddCountryActivity extends Activity {
+public class AddVisitActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_country);
+        setContentView(R.layout.activity_add_visit);
     }
 
     public void onClick(View view) {
@@ -30,7 +30,7 @@ public class AddCountryActivity extends Activity {
             new Message(this).showErrorMessage("Please enter a year.");
             return;
         }
-        if (!VisitedCountriesValidator.isInputValid(this, year, country)) {
+        if (!VisitsValidator.isInputValid(this, year, country)) {
             return;
         }
 

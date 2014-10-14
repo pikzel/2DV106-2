@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import se.pikzel.assignment2.ex1.VisitedCountriesActivity;
+import se.pikzel.assignment2.ex1.VisitsActivity;
 
 /**
  * @author Pontus Palmenäs
@@ -35,7 +35,7 @@ public class MainActivity extends ListActivity {
     }
 
     private void setupActivities() {
-        addActivity("Visited Countries", VisitedCountriesActivity.class);
+        addActivity("Visits", VisitsActivity.class);
     }
 
     private void addActivity(String name, Class activity) {

@@ -54,12 +54,13 @@ public class DataSource {
         String restrict = DbHelper.COLUMN_ID + "=" + visitId;
         Cursor cursor = database.query(true, DbHelper.VISITS_TABLE_NAME, allColumns, restrict,
                 null, null, null, null, null);
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            return cursorToVisit(cursor);
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                return cursorToVisit(cursor);
+            }
+            cursor.close();
         }
-        // Make sure to close the cursor
-        cursor.close();
         return null;
     }
 
@@ -72,11 +73,13 @@ public class DataSource {
         return database.update(DbHelper.VISITS_TABLE_NAME, args, restrict, null) > 0;
     }
 
-    public List<Visit> getAllVisits() {
+    public List<Visit> getAllVisits(VisitSortOrder sortedBy) {
         List<Visit> visits = new ArrayList<Visit>();
 
+        String sortString = getSortString(sortedBy);
+
         Cursor cursor = database.query(DbHelper.VISITS_TABLE_NAME,
-                allColumns, null, null, null, null, null);
+                allColumns, null, null, null, null, sortString);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -87,6 +90,27 @@ public class DataSource {
         // Make sure to close the cursor
         cursor.close();
         return visits;
+    }
+
+    private String getSortString(VisitSortOrder sortedBy) {
+        String sortString;
+        switch (sortedBy) {
+            case YEAR:
+                sortString = DbHelper.COLUMN_YEAR;
+                break;
+            case YEAR_DESC:
+                sortString = DbHelper.COLUMN_YEAR + " DESC";
+                break;
+            case COUNTRY:
+                sortString = DbHelper.COLUMN_COUNTRY;
+                break;
+            case COUNTRY_DESC:
+                sortString = DbHelper.COLUMN_COUNTRY + " DESC";
+                break;
+            default:
+                sortString = DbHelper.COLUMN_YEAR;
+        }
+        return sortString;
     }
 
     private Visit cursorToVisit(Cursor cursor) {

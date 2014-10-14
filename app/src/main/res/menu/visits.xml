@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menuGroupSortOrder">
+        <item android:id="@+id/menuVisitsSortByCountry" android:title="@string/sortByCountryAsc"/>
+        <item android:id="@+id/menuVisitsSortByCountryDesc" android:title="@string/sortByCountryDesc"/>
+        <item android:id="@+id/menuVisitsSortByYear" android:title="@string/sortByYearAsc"/>
+        <item android:id="@+id/menuVisitsSortByYearDesc" android:title="@string/sortByYearDesc"/>
+    </group>
+
+    <item android:id="@+id/menuSettings" android:title="@string/menuSettings"/>
+
+    <item android:id="@+id/menuAddVisitedCountry"
+        android:title="@string/addCountry"
+        android:icon="@android:drawable/ic_menu_add"
+        android:showAsAction="ifRoom|withText"/>
+</menu>
+

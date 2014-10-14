@@ -14,5 +14,14 @@
     <string name="menuEditVisit">Edit</string>
     <string name="title_activity_edit_visited_countries">Edit</string>
     <string name="buttonCancelCountry">Cancel</string>
+    <string name="changeSortOrder">Change sort order</string>
+    <string name="sortByCountryAsc">Country</string>
+    <string name="sortByCountryDesc">Country (desc)</string>
+    <string name="sortByYearAsc">Year</string>
+    <string name="sortByYearDesc">Year (desc)</string>
+    <string name="pref_textSize">Text size</string>
+    <string name="size_settings">Change text size</string>
+    <string name="menuSettings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>

@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ex1.VisitedCountriesActivity"
+            android:name=".ex1.VisitsActivity"
             android:label="@string/title_activity_visited_countries"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -25,12 +25,18 @@
                 android:value="se.pikzel.assignment2.MainActivity" />
         </activity>
         <activity
-            android:name=".ex1.AddCountryActivity"
+            android:name=".ex1.AddVisitActivity"
             android:label="@string/addCountry" >
         </activity>
         <activity
-            android:name=".ex1.EditVisitedCountriesActivity"
+            android:name=".ex1.EditVisitsActivity"
             android:label="@string/title_activity_edit_visited_countries" >
+        </activity>
+
+        <activity android:name=".ex1.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            >
+
         </activity>
     </application>
 
