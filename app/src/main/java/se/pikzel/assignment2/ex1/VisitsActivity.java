@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import se.pikzel.assignment2.Message;
+import se.pikzel.assignment2.UIMessage;
 import se.pikzel.assignment2.R;
 import se.pikzel.assignment2.ex1.settings.BackgroundColor;
 import se.pikzel.assignment2.ex1.settings.SettingsActivity;
@@ -30,7 +30,6 @@ import se.pikzel.assignment2.ex1.settings.VisitSettings;
 public class VisitsActivity extends Activity {
     private ListView listView;
     private ArrayAdapter<Visit> listAdapter;
-    private Activity mainActivity;
     private DataSource dataSource;
     private List<Visit> visits;
     private VisitSettings settings;
@@ -49,7 +48,6 @@ public class VisitsActivity extends Activity {
         final String prefSortedBy = settings.getSortedBy(VisitSortOrder.YEAR);
 
         setContentView(R.layout.activity_visits);
-        mainActivity = this;
         dataSource = new DataSource(this);
 
         getVisitsFromDatabase(VisitSortOrder.valueOf(prefSortedBy));
@@ -108,10 +106,10 @@ public class VisitsActivity extends Activity {
             listAdapter.remove(visit);
         } else if (item.getItemId() == MENU_EDIT) {
             final Visit visit = visits.get(info.position);
-            final Intent intent = new Intent(mainActivity, EditVisitsActivity.class);
+            final Intent intent = new Intent(this, EditVisitsActivity.class);
             intent.putExtra(Visit.ID, visit.getId());
             intent.putExtra(Visit.POSITION, info.position); // This is a bit silly, but we need to keep track of the position in the list somehow, for the edit callback.
-            mainActivity.startActivityForResult(intent, REQUEST_EDIT);
+            this.startActivityForResult(intent, REQUEST_EDIT);
         }
         return true;
     }
@@ -145,8 +143,8 @@ public class VisitsActivity extends Activity {
         } else {
             switch (item.getItemId()) {
                 case R.id.menuAddVisitedCountry:
-                    final Intent intent = new Intent(mainActivity, AddVisitActivity.class);
-                    mainActivity.startActivityForResult(intent, REQUEST_CREATE);
+                    final Intent intent = new Intent(this, AddVisitActivity.class);
+                    this.startActivityForResult(intent, REQUEST_CREATE);
                     break;
                 case R.id.menuSettings:
                     Intent settings = new Intent(this, SettingsActivity.class);
@@ -227,7 +225,7 @@ public class VisitsActivity extends Activity {
                 visits.set(position, new Visit(year, country));
                 reloadList();
             } else {
-                new Message(this).showErrorMessage("Edit failed");
+                new UIMessage(this).showErrorMessage("Edit failed");
             }
         }
     }

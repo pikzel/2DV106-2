@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import se.pikzel.assignment2.Message;
+import se.pikzel.assignment2.UIMessage;
 import se.pikzel.assignment2.R;
 
 public class EditVisitsActivity extends Activity {
@@ -17,7 +17,7 @@ public class EditVisitsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_visits);
+        setContentView(R.layout.activity_edit_visit);
         this.id = getIntent().getLongExtra(Visit.ID, -1);
         this.position = getIntent().getIntExtra(Visit.POSITION, -1);
     }
@@ -42,7 +42,7 @@ public class EditVisitsActivity extends Activity {
         try {
             year = Integer.parseInt(editYear.getText().toString());
         } catch (NumberFormatException e) {
-            new Message(this).showErrorMessage("Please enter a year.");
+            new UIMessage(this).showErrorMessage("Please enter a year.");
             return;
         }
         if (!VisitsValidator.isInputValid(this, year, country)) {

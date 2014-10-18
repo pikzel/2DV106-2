@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import se.pikzel.assignment2.Message;
+import se.pikzel.assignment2.UIMessage;
 import se.pikzel.assignment2.R;
 
 /**
@@ -27,7 +27,7 @@ public class AddVisitActivity extends Activity {
         try {
             year = Integer.parseInt(editYear.getText().toString());
         } catch (NumberFormatException e) {
-            new Message(this).showErrorMessage("Please enter a year.");
+            new UIMessage(this).showErrorMessage("Please enter a year.");
             return;
         }
         if (!VisitsValidator.isInputValid(this, year, country)) {

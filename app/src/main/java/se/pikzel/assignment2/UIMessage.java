@@ -1,6 +1,5 @@
 package se.pikzel.assignment2;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,16 +7,16 @@ import android.content.DialogInterface;
 /**
  * @author Pontus Palmenäs
  */
-public class Message {
+public class UIMessage {
 
     private Context context;
 
-    public Message(Context context) {
+    public UIMessage(Context context) {
         this.context = context;
     }
 
     public void showErrorMessage(String message) {
-        showMessage("Error", message); // Todo: Extract resource
+        showMessage("Error", message);
     }
 
     /**

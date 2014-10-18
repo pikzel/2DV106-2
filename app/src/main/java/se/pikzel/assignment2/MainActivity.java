@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import se.pikzel.assignment2.ex1.VisitsActivity;
+import se.pikzel.assignment2.ex3.AlarmsActivity;
 
 /**
  * @author Pontus Palmenäs
@@ -36,6 +37,7 @@ public class MainActivity extends ListActivity {
 
     private void setupActivities() {
         addActivity("Visits", VisitsActivity.class);
+        addActivity("Alarm", AlarmsActivity.class);
     }
 
     private void addActivity(String name, Class activity) {

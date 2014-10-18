@@ -32,11 +32,17 @@
             android:name=".ex1.EditVisitsActivity"
             android:label="@string/title_activity_edit_visited_countries" >
         </activity>
-
-        <activity android:name=".ex1.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            >
-
+        <activity
+            android:name=".ex1.settings.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".ex3.AddAlarmActivity"
+            android:label="@string/title_activity_alarm" >
+        </activity>
+        <activity
+            android:name=".ex3.AlarmsActivity"
+            android:label="@string/title_activity_alarm_list" >
         </activity>
     </application>
 

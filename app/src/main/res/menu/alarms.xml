@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="se.pikzel.assignment2.ex3.AlarmsActivity" >
+    <item android:id="@+id/menuAddAlarm"
+        android:title="@string/addAlarm"
+        android:icon="@android:drawable/ic_menu_add"
+        android:showAsAction="ifRoom|withText"/>
+</menu>
