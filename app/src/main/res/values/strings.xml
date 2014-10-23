@@ -31,5 +31,9 @@
     <string name="addAlarm">Add Alarm</string>
     <string name="alarmCurrentTime">Current time:</string>
     <string name="menuDeleteAlarm">Delete alarm</string>
+    <string name="title_activity_alarm_notice">Alarm</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="alarmStopButton">Stop</string>
+    <string name="title_alarm_notice">Alarm</string>
 
 </resources>

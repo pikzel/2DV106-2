@@ -44,6 +44,19 @@
             android:name=".ex3.AlarmsActivity"
             android:label="@string/title_activity_alarm_list" >
         </activity>
+
+        <receiver
+            android:name=".ex3.AlarmReceiver"
+            android:label="Alarm Message Receiver" >
+            <intent-filter>
+                <action android:name="se.pikzel.assignment2.ex3.ALARM_BROADCAST" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ex3.AlarmNotificationActivity"
+            android:label="@string/title_activity_alarm_notice" >
+        </activity>
     </application>
 
 </manifest>

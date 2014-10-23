@@ -2,9 +2,11 @@ package se.pikzel.assignment2.ex3;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -32,6 +34,7 @@ public class AlarmsActivity extends Activity {
     private ArrayAdapter<Alarm> listAdapter;
     private List<Alarm> alarms;
     private final int MENU_DELETE = 0;
+    private AlarmService alarmService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,15 @@ public class AlarmsActivity extends Activity {
         listView.setAdapter(listAdapter);
         registerForContextMenu(listView);
 
+        checkAndCreateSaveFile();
+
+        alarmService = new AlarmService(this);
+
         startCurrentTimeHandler();
+    }
+
+    private void checkAndCreateSaveFile() {
+
     }
 
     private void error(String s) {
@@ -51,7 +62,7 @@ public class AlarmsActivity extends Activity {
     }
 
     private void saveAlarms() {
-        AlarmStorage storage = new AlarmStorage(this);
+        AlarmFileHandler storage = new AlarmFileHandler(this);
         try {
             storage.save(alarms);
         } catch (IOException e) {
@@ -61,7 +72,7 @@ public class AlarmsActivity extends Activity {
     }
 
     private List<Alarm> loadAlarms() {
-        AlarmStorage storage = new AlarmStorage(this);
+        AlarmFileHandler storage = new AlarmFileHandler(this);
         List<Alarm> list = new ArrayList<Alarm>();
         try {
             list = storage.load();
@@ -107,11 +118,16 @@ public class AlarmsActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         if (item.getItemId() == MENU_DELETE) {
-            alarms.remove(info.position);
-            reloadList();
-            saveAlarms();
+            removeAlarm(info);
         }
         return true;
+    }
+
+    private void removeAlarm(AdapterView.AdapterContextMenuInfo info) {
+        alarmService.remove(alarms.get(info.position));
+        alarms.remove(info.position);
+        reloadList();
+        saveAlarms();
     }
 
     private void reloadList() {
@@ -137,10 +153,23 @@ public class AlarmsActivity extends Activity {
         if (resultCode == RESULT_OK) {
             int hour = data.getIntExtra("hour", 0);
             int minute = data.getIntExtra("minute", 0);
-            alarms.add(new Alarm(hour, minute));
+            addAlarm(hour, minute);
             reloadList();
             saveAlarms();
         }
+    }
+
+    /**
+     * Create an alarm and assign it an id using shared preference.
+     * Add the id to the global list and set it in the alarm manager.
+     */
+    private void addAlarm(int hour, int minute) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int newId = prefs.getInt("alarmId", 0) + 1;
+        Alarm alarm = new Alarm(newId, hour, minute);
+        alarms.add(alarm);
+        alarmService.set(alarm);
+        prefs.edit().putInt("alarmId", newId).apply();
     }
 
     /**
