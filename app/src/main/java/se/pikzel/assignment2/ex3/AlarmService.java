@@ -22,24 +22,22 @@ public class AlarmService {
     }
 
     /**
-     * Register the broadcast receiver
+     * Sets a repeating alarm that triggers every 24 hours until removed.
      */
     public void set(final Alarm alarm) {
-
         Intent intent = new Intent(broadcastName);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, 0);
 
         long startTime = getStartTime(alarm);
-        manager.set(AlarmManager.RTC_WAKEUP, startTime, alarmIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000*60*60*24, alarmIntent);
         Log.d("Alarm", "Alarm " + alarm.getId() + " set at " + startTime);
-
-        // Todo: When the alarm has rang, remove it from the list, OR it should be recurring every 24 hours
     }
 
     public void remove(final Alarm alarm) {
         Intent intent = new Intent(broadcastName);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         manager.cancel(pendingIntent);
+        Log.d("Alarm", "Alarm " + alarm.getId() + " removed.");
     }
 
     private long getStartTime(final Alarm alarm) {
